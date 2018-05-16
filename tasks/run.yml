@@ -4,3 +4,4 @@
 - import_tasks: virtualbox.yml
 - import_tasks: libvirt.yml
 - import_tasks: vagrant.yml
+- import_tasks: cockpit.yml

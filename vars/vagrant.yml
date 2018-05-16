@@ -3,6 +3,12 @@ vagrant_instance:
   homedir: "{{ darkbulb_homedir }}"
 
 vagrant_packages:
+  - name: ruby-devel
+    update_cache: yes
+    state: latest
+  - name:  gcc
+    update_cache: yes
+    state: latest
   - name: https://releases.hashicorp.com/vagrant/2.1.1/vagrant_2.1.1_x86_64.rpm
     update_cache: yes
     state: latest
@@ -11,9 +17,9 @@ vagrant_plugins:
   - hostmanager
   - vagrant-host-shell
   - vagrant-junos
+  - vagrant-libvirt
 
 vagrant_public_boxes:
-  - ansible/tower
   - centos/7
   - juniper/vqfx10k-re
   - CumulusCommunity/cumulus-vx

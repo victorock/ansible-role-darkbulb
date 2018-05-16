@@ -1,0 +1,8 @@
+#/etc/polkit-1/localauthority.conf.d/{{ libvirt_instance.user }}.pkla
+
+[Allow {{ libvirt_instance.user }} libvirt management permissions]
+Identity=unix-user:{{ libvirt_instance.user }}
+Action=org.libvirt.unix.manage
+ResultAny=yes
+ResultInactive=yes
+ResultActive=yes

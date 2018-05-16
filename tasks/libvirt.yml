@@ -20,8 +20,8 @@
   copy:
     src: "{{ libvirt_images_path.local }}"
     dest: "{{ libvirt_images_path.remote }}"
-    owner: "{{ libvirt_instance.user }}"
-    group: "{{ libvirt_instance.user }}"
+    owner: "{{ libvirt_images_path.owner }}"
+    group: "{{ libvirt_images_path.group }}"
     force: yes
   tags:
     - install
@@ -30,9 +30,27 @@
   become: true
   file:
     path: "{{ libvirt_images_path.remote }}"
-    owner: "{{ libvirt_instance.user }}"
-    group: "{{ libvirt_instance.user }}"
+    owner: "{{ libvirt_images_path.owner }}"
+    group: "{{ libvirt_images_path.owner }}"
     recurse: yes
     state: directory
+  tags:
+    - config
+
+- name: "libvirt: Ensure service state"
+  service:
+    name: "{{ libvirt_service.name }}"
+    state: "{{ libvirt_service.state }}"
+    enabled: "{{ libvirt_service.enabled }}"
+  tags:
+    - config
+
+- name: "libvirt: Ensure Polkit Localauthority"
+  become: true
+  template:
+    src: "{{ libvirt_auth.src }}"
+    dest: "{{ libvirt_auth.dest }}"
+    mode: '0600'
+  notify: libvirtd_reload
   tags:
     - config

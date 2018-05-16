@@ -1,0 +1,24 @@
+---
+- name: "cockpit: Load variables"
+  include_vars:
+    file: "cockpit.yml"
+
+- name: "cockpit: Ensure state of packages"
+  become: true
+  yum:
+    name: "{{ cockpit_package.name }}"
+    state: "{{ cockpit_package.state }}"
+    update_cache: "{{ cockpit_package.update_cache }}"
+  loop: "{{ cockpit_packages | default([]) }}"
+  loop_control:
+    loop_var: cockpit_package
+  tags:
+    - install
+
+- name: "cockpit: Ensure service state"
+  service:
+    name: "{{ cockpit_service.name }}"
+    state: "{{ cockpit_service.state }}"
+    enabled: "{{ cockpit_service.enabled }}"
+  tags:
+    - config

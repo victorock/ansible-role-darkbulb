@@ -2,8 +2,20 @@ libvirt_instance:
   user: "{{ darkbulb_user }}"
   homedir: "{{ darkbulb_homedir }}"
 
+libvirt_service:
+  state: started
+  name: libvirtd
+  enabled: yes
+
+libvirt_auth:
+  src: "libvirtd-auth.j2"
+  dest: "/etc/polkit-1/localauthority.conf.d/{{ libvirt_instance.user }}.pkla"
+
 libvirt_packages:
   - name: epel-release
+    update_cache: yes
+    state: latest
+  - name: qemu
     update_cache: yes
     state: latest
   - name: qemu-kvm
@@ -24,6 +36,9 @@ libvirt_packages:
   - name: libvirt
     update_cache: yes
     state: latest
+  - name: libvirt-devel
+    update_cache: yes
+    state: latest
   - name: libvirt-python
     update_cache: yes
     state: latest
@@ -33,4 +48,6 @@ libvirt_packages:
 
 libvirt_images_path:
   local: "files/images/qcow2/"
-  remote: "{{ libvirt_instance.homedir }}/images/qcow2/"
+  remote: "/var/lib/libvirt/images/"
+  owner: qemu
+  group: qemu
