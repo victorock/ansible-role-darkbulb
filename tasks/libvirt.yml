@@ -54,3 +54,21 @@
   notify: libvirtd_reload
   tags:
     - config
+
+- name: "libvirt: Ensure state of group libvirt"
+  become: true
+  group:
+    name: "{{ libvirt_instance.group }}"
+    state: present
+    system: yes
+  tags:
+    - configure
+
+- name: "libvirt: Ensure state of user as member of libvirt"
+  become: true
+  user:
+    name: "{{ libvirt_instance.user }}"
+    groups: "{{ libvirt_instance.group }}"
+    append: yes
+  tags:
+    - configure

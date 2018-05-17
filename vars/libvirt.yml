@@ -1,6 +1,7 @@
 libvirt_instance:
   user: "{{ darkbulb_user }}"
   homedir: "{{ darkbulb_homedir }}"
+  group: libvirt
 
 libvirt_service:
   state: started
@@ -9,7 +10,7 @@ libvirt_service:
 
 libvirt_auth:
   src: "libvirtd-auth.j2"
-  dest: "/etc/polkit-1/localauthority.conf.d/{{ libvirt_instance.user }}.pkla"
+  dest: "/etc/polkit-1/localauthority/50-local.d/libvirt.pkla"
 
 libvirt_packages:
   - name: epel-release
