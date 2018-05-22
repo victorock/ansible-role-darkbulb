@@ -23,6 +23,7 @@
     owner: "{{ libvirt_images_path.owner }}"
     group: "{{ libvirt_images_path.group }}"
     force: yes
+  notify: libvirtd_reload
   tags:
     - install
 
