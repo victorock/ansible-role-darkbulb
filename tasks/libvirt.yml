@@ -3,19 +3,43 @@
   include_vars:
     file: "libvirt.yml"
 
+- name: "libvirt: Ensure state of repository"
+  when: libvirt_repos|length > 0
+  become: true
+  yum_repository:
+    name: "{{ libvirt_repo.name }}"
+    baseurl: "{{ libvirt_repo.baseurl }}"
+    description: "{{ libvirt_repo.description | default(omit) }}"
+    gpgcheck: "{{ libvirt_repo.gpgcheck | default(omit) }}"
+    enabled: "{{ libvirt_repo.enabled | default(omit) }}"
+    repo_gpgcheck: "{{ libvirt_repo.repo_gpgcheck | default(omit) }}"
+    gpgkey: "{{ libvirt_repo.gpgkey | default(omit) }}"
+  loop: "{{ libvirt_repos }}"
+  loop_control:
+    loop_var: libvirt_repo
+  tags:
+    - configure
+
 - name: "libvirt: Ensure state of packages"
+  when: libvirt_packages|length > 0
   become: true
   yum:
     name: "{{ libvirt_package.name }}"
-    state: "{{ libvirt_package.state | default('latest') }}"
-    update_cache: "{{ libvirt_package.update_cache | default('yes') }}"
+    state: "{{ libvirt_package.state | default(omit) }}"
+    update_cache: "{{ libvirt_package.update_cache | default(omit) }}"
   loop: "{{ libvirt_packages }}"
   loop_control:
     loop_var: libvirt_package
   tags:
     - install
 
+- name: "libvirt: Check if the path exist"
+  stat:
+    path: "{{ libvirt_images_path.local }}"
+  register: stat_libvirt_images_path
+
 - name: "libvirt: Ensure state of image files"
+  when: stat_libvirt_images_path.stat.exists
   become: true
   copy:
     src: "{{ libvirt_images_path.local }}"

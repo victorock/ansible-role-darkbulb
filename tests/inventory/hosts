@@ -1,7 +1,7 @@
 [all:children]
-darkbulb
+test
 
-[darkbulb:children]
+[test:children]
 tag_darkbulb
 
 [tag_darkbulb]

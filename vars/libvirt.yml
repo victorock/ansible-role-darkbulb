@@ -3,6 +3,14 @@ libvirt_instance:
   homedir: "{{ darkbulb_homedir }}"
   group: libvirt
 
+libvirt_repos:
+  - name: qemu-firmware-jenkins
+    description: "firmware for qemu, built by jenkins, fresh from git repos"
+    baseurl: https://www.kraxel.org/repos/jenkins/
+    gpgcheck: no
+    enabled: yes
+    repo_gpgcheck: no
+
 libvirt_service:
   state: started
   name: libvirtd
@@ -13,43 +21,20 @@ libvirt_auth:
   dest: "/etc/polkit-1/localauthority/50-local.d/libvirt.pkla"
 
 libvirt_packages:
-  - name: epel-release
-    update_cache: yes
-    state: latest
-  - name: qemu
-    update_cache: yes
-    state: latest
-  - name: qemu-kvm
-    update_cache: yes
-    state: latest
-  - name: qemu-img
-    update_cache: yes
-    state: latest
-  - name: qemu-kvm-tools
-    update_cache: yes
-    state: latest
-  - name: virt-top
-    update_cache: yes
-    state: latest
-  - name: virt-install
-    update_cache: yes
-    state: latest
-  - name: libvirt
-    update_cache: yes
-    state: latest
-  - name: libvirt-devel
-    update_cache: yes
-    state: latest
-  - name: libvirt-python
-    update_cache: yes
-    state: latest
-  - name: libvirt-client
-    update_cache: yes
-    state: latest
-  - name: OVMF
-    update_cache: yes
-    state: latest
-  - name: edk2.git-ovmf-x64
+  - name:
+      - qemu
+      - qemu-kvm
+      - qemu-img
+      - qemu-kvm-tools
+      - virt-top
+      - virt-install
+      - virt-manager
+      - libvirt
+      - libvirt-devel
+      - libvirt-python
+      - libvirt-client
+      - OVMF
+      - edk2.git-ovmf-x64
     update_cache: yes
     state: latest
 

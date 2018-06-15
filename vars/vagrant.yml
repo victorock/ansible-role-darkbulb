@@ -2,8 +2,11 @@ vagrant_instance:
   user: "{{ darkbulb_user }}"
   homedir: "{{ darkbulb_homedir }}"
 
+vagrant_repos: []
+
 vagrant_packages:
-  - name: https://releases.hashicorp.com/vagrant/2.1.1/vagrant_2.1.1_x86_64.rpm
+  - name:
+      - https://releases.hashicorp.com/vagrant/2.1.1/vagrant_2.1.1_x86_64.rpm
     update_cache: yes
     state: latest
 
@@ -12,7 +15,7 @@ vagrant_plugins:
   - vagrant-host-shell
   - vagrant-junos
 
-vagrant_public_boxes:
+vagrant_boxes:
   - ansible/tower
   - centos/7
   - juniper/vqfx10k-re

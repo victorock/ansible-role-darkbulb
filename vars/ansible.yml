@@ -1,4 +1,4 @@
-setup_repos:
+ansible_repos:
   - name: ansible_release
     description: "CentOS-$releasever / $basearch - Ansible Release"
     baseurl: "http://releases.ansible.com/ansible/rpm/release/epel-$releasever-$basearch"
@@ -13,22 +13,10 @@ setup_repos:
     enabled: yes
     repo_gpgcheck: no
 
-setup_packages:
+ansible_packages:
   - name:
-      - http://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm
-    state: present
-
-  - name:
-      - kernel-devel
-      - git
-      - ruby
-      - rubygems
-      - wget
-      - net-tools
-      - htop
-      - dkms
-      - telnet
-      - socat
-      - "@Development Tools"
+      - ansible
+      - python-ncclient
+      - libselinux-python
     update_cache: yes
     state: latest

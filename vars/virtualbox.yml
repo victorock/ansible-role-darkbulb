@@ -13,6 +13,11 @@ virtualbox_repos:
     gpgkey: "https://www.virtualbox.org/download/oracle_vbox.asc"
 
 virtualbox_packages:
-  - name: VirtualBox-5.2
+  - name:
+      - http://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm
+    state: present
+
+  - name:
+      - VirtualBox-5.2
     update_cache: yes
     state: latest

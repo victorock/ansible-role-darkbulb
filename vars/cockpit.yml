@@ -2,30 +2,24 @@ cockpit_instance:
   user: "{{ darkbulb_user }}"
   homedir: "{{ darkbulb_homedir }}"
 
+cockpit_repos: []
+
 cockpit_service:
   state: started
   name: cockpit
   enabled: yes
 
 cockpit_packages:
-  - name: epel-release
-    update_cache: yes
-    state: latest
-  - name: cockpit
-    update_cache: yes
-    state: latest
-  - name: cockpit-ws
-    update_cache: yes
-    state: latest
-  - name: cockpit-system
-    update_cache: yes
-    state: latest
-  - name: cockpit-packagekit
-    update_cache: yes
-    state: latest
-  - name: cockpit-dashboard
-    update_cache: yes
-    state: latest
-  - name: cockpit-machines.x86_64
+  - name:
+      - http://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm
+    state: present
+
+  - name:
+      - cockpit
+      - cockpit-ws
+      - cockpit-system
+      - cockpit-packagekit
+      - cockpit-dashboard
+      - cockpit-machines.x86_64
     update_cache: yes
     state: latest

@@ -4,27 +4,29 @@
     file: "setup.yml"
 
 - name: "setup: Ensure state of Ansible Repo"
+  when: setup_repos|length > 0
   become: true
   yum_repository:
     name: "{{ setup_repo.name }}"
-    description: "{{ setup_repo.description }}"
     baseurl: "{{ setup_repo.baseurl }}"
-    gpgcheck: "{{ setup_repo.gpgcheck }}"
-    enabled: "{{ setup_repo.enabled }}"
-    repo_gpgcheck: "{{ setup_repo.repo_gpgcheck }}"
-  loop: "{{ setup_repos | default([]) }}"
+    description: "{{ setup_repo.description | default(omit) }}"
+    gpgcheck: "{{ setup_repo.gpgcheck | default(omit) }}"
+    enabled: "{{ setup_repo.enabled | default(omit) }}"
+    repo_gpgcheck: "{{ setup_repo.repo_gpgcheck | default(omit) }}"
+  loop: "{{ setup_repos }}"
   loop_control:
     loop_var: setup_repo
   tags:
     - configure
 
 - name: "setup: Ensure state of packages"
+  when: setup_packages|length > 0
   become: true
   yum:
     name: "{{ setup_package.name }}"
-    state: "{{ setup_package.state }}"
-    update_cache: "{{ setup_package.update_cache }}"
-  loop: "{{ setup_packages | default([]) }}"
+    state: "{{ setup_package.state | default(omit) }}"
+    update_cache: "{{ setup_package.update_cache | default(omit) }}"
+  loop: "{{ setup_packages }}"
   loop_control:
     loop_var: setup_package
   tags:

@@ -1,6 +1,6 @@
-- name: "Darkbulb"
-  hosts: darkbulb
-  gather_facts: no
+- name: "test"
+  hosts: test
+  gather_facts: yes
   become: yes
 
   roles:

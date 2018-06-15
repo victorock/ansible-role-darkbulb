@@ -1,0 +1,26 @@
+user_instance:
+  user: "{{ darkbulb_user }}"
+  homedir: "{{ darkbulb_homedir }}"
+
+user_repos: []
+
+user_gits:
+  - src: "https://github.com/victorock/darkbulb-topologies.git"
+    dest: "{{ user_instance.homedir }}/topologies"
+    version: dev
+    clone: yes
+    force: no
+
+user_keychain_paths:
+  ssh:
+    src: "files/keychain/ssh"
+    dest: "{{ user_instance.homedir }}/.ssh"
+
+user_keychain_files:
+  ssh:
+    public_key:
+      src: "{{ user_keychain_paths.ssh.src }}/id_rsa.pub"
+      dest: "{{ user_keychain_paths.ssh.dest }}/id_rsa.pub"
+    private_key:
+      src: "{{ user_keychain_paths.ssh.src }}/id_rsa"
+      dest: "{{ user_keychain_paths.ssh.dest }}/id_rsa"
