@@ -9,6 +9,11 @@ Requirements
 ```YAML
 darkbulb_user: "darkbulb"
 darkbulb_homedir: "/home/darkbulb"
+darkbulb_ansible: "yes"
+darkbulb_cockpit: "yes"
+darkbulb_libvirt: yes
+darkbulb_vagrant: "no"
+darkbulb_virtualbox: "no"
 ```
 
 Role Variables
