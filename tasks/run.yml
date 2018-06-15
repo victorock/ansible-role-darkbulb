@@ -1,18 +1,26 @@
 ---
-- import_tasks: setup.yml
-- import_tasks: user.yml
+- name: "setup"
+  include_tasks: setup.yml
 
-- import_tasks: ansible.yml
+- name: "user"
+  include_tasks: user.yml
+
+- name: "ansible"
+  include_tasks: ansible.yml
   when: darkbulb_ansible|bool
 
-- import_tasks: cockpit.yml
+- name: "cockpit"
+  include_tasks: cockpit.yml
   when: darkbulb_cockpit|bool
 
-- import_tasks: libvirt.yml
+- name: "libvirt"
+  include_tasks: libvirt.yml
   when: darkbulb_libvirt|bool
 
-- import_tasks: vagrant.yml
+- name: "vagrant"
+  include_tasks: vagrant.yml
   when: darkbulb_vagrant|bool
 
-- import_tasks: virtualbox.yml
+- name: "virtualbox"
+  include_tasks: virtualbox.yml
   when: darkbulb_virtualbox|bool
