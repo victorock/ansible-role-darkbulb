@@ -46,6 +46,12 @@ libvirt_packages:
   - name: libvirt-client
     update_cache: yes
     state: latest
+  - name: OVMF
+    update_cache: yes
+    state: latest
+  - name: edk2.git-ovmf-x64
+    update_cache: yes
+    state: latest
 
 libvirt_images_path:
   local: "files/images/qcow2/"

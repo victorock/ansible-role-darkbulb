@@ -7,9 +7,9 @@
   become: true
   yum:
     name: "{{ libvirt_package.name }}"
-    state: "{{ libvirt_package.state }}"
-    update_cache: "{{ libvirt_package.update_cache }}"
-  loop: "{{ libvirt_packages | default([]) }}"
+    state: "{{ libvirt_package.state | default('latest') }}"
+    update_cache: "{{ libvirt_package.update_cache | default('yes') }}"
+  loop: "{{ libvirt_packages }}"
   loop_control:
     loop_var: libvirt_package
   tags:

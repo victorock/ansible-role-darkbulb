@@ -13,6 +13,13 @@ setup_repos:
     enabled: yes
     repo_gpgcheck: no
 
+  - name: qemu-firmware-jenkins
+    description: "firmware for qemu, built by jenkins, fresh from git repos"
+    baseurl: https://www.kraxel.org/repos/jenkins/
+    gpgcheck: no
+    enabled: yes
+    repo_gpgcheck: no
+
 setup_packages:
   - name: epel-release
     update_cache: yes
