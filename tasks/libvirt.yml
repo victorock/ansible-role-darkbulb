@@ -1,0 +1,99 @@
+---
+- name: "libvirt: Load variables"
+  include_vars:
+    file: "libvirt.yml"
+
+- name: "libvirt: Ensure state of repository"
+  when: libvirt_repos|length > 0
+  become: true
+  yum_repository:
+    name: "{{ libvirt_repo.name }}"
+    baseurl: "{{ libvirt_repo.baseurl }}"
+    description: "{{ libvirt_repo.description | default(omit) }}"
+    gpgcheck: "{{ libvirt_repo.gpgcheck | default(omit) }}"
+    enabled: "{{ libvirt_repo.enabled | default(omit) }}"
+    repo_gpgcheck: "{{ libvirt_repo.repo_gpgcheck | default(omit) }}"
+    gpgkey: "{{ libvirt_repo.gpgkey | default(omit) }}"
+  loop: "{{ libvirt_repos }}"
+  loop_control:
+    loop_var: libvirt_repo
+  tags:
+    - configure
+
+- name: "libvirt: Ensure state of packages"
+  when: libvirt_packages|length > 0
+  become: true
+  yum:
+    name: "{{ libvirt_package.name }}"
+    state: "{{ libvirt_package.state | default(omit) }}"
+    update_cache: "{{ libvirt_package.update_cache | default(omit) }}"
+  loop: "{{ libvirt_packages }}"
+  loop_control:
+    loop_var: libvirt_package
+  tags:
+    - install
+
+- name: "libvirt: Check if the path exist"
+  stat:
+    path: "{{ libvirt_images_path.local }}"
+  register: stat_libvirt_images_path
+
+- name: "libvirt: Ensure state of image files"
+  when: stat_libvirt_images_path.stat.exists
+  become: true
+  copy:
+    src: "{{ libvirt_images_path.local }}"
+    dest: "{{ libvirt_images_path.remote }}"
+    owner: "{{ libvirt_images_path.owner }}"
+    group: "{{ libvirt_images_path.group }}"
+    force: yes
+  notify: libvirtd_reload
+  tags:
+    - install
+
+- name: "libvirt: Ensure state of permissions in images folder"
+  become: true
+  file:
+    path: "{{ libvirt_images_path.remote }}"
+    owner: "{{ libvirt_images_path.owner }}"
+    group: "{{ libvirt_images_path.owner }}"
+    recurse: yes
+    state: directory
+  tags:
+    - config
+
+- name: "libvirt: Ensure service state"
+  service:
+    name: "{{ libvirt_service.name }}"
+    state: "{{ libvirt_service.state }}"
+    enabled: "{{ libvirt_service.enabled }}"
+  tags:
+    - config
+
+- name: "libvirt: Ensure Polkit Localauthority"
+  become: true
+  template:
+    src: "{{ libvirt_auth.src }}"
+    dest: "{{ libvirt_auth.dest }}"
+    mode: '0600'
+  notify: libvirtd_reload
+  tags:
+    - config
+
+- name: "libvirt: Ensure state of group libvirt"
+  become: true
+  group:
+    name: "{{ libvirt_instance.group }}"
+    state: present
+    system: yes
+  tags:
+    - configure
+
+- name: "libvirt: Ensure state of user as member of libvirt"
+  become: true
+  user:
+    name: "{{ libvirt_instance.user }}"
+    groups: "{{ libvirt_instance.group }}"
+    append: yes
+  tags:
+    - configure

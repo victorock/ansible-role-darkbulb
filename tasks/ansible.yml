@@ -1,0 +1,34 @@
+---
+- name: "ansible: Load variables"
+  include_vars:
+    file: "ansible.yml"
+
+- name: "ansible: Ensure state of repository"
+  when: ansible_repos|length > 0
+  become: true
+  yum_repository:
+    name: "{{ ansible_repo.name }}"
+    baseurl: "{{ ansible_repo.baseurl }}"
+    description: "{{ ansible_repo.description | default(omit) }}"
+    gpgcheck: "{{ ansible_repo.gpgcheck | default(omit) }}"
+    enabled: "{{ ansible_repo.enabled | default(omit) }}"
+    repo_gpgcheck: "{{ ansible_repo.repo_gpgcheck | default(omit) }}"
+    gpgkey: "{{ ansible_repo.gpgkey | default(omit) }}"
+  loop: "{{ ansible_repos }}"
+  loop_control:
+    loop_var: ansible_repo
+  tags:
+    - configure
+
+- name: "ansible: Ensure state of packages"
+  when: ansible_packages|length > 0
+  become: true
+  yum:
+    name: "{{ ansible_package.name }}"
+    state: "{{ ansible_package.state  | default(omit) }}"
+    update_cache: "{{ ansible_package.update_cache | default(omit) }}"
+  loop: "{{ ansible_packages }}"
+  loop_control:
+    loop_var: ansible_package
+  tags:
+    - install

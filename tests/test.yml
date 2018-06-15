@@ -1,0 +1,12 @@
+- name: "test"
+  hosts: test
+  gather_facts: yes
+  become: yes
+
+  roles:
+    - test
+
+  tasks:
+    - include_role:
+        name: test
+        tasks_from: run

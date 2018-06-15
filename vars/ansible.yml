@@ -1,0 +1,22 @@
+ansible_repos:
+  - name: ansible_release
+    description: "CentOS-$releasever / $basearch - Ansible Release"
+    baseurl: "http://releases.ansible.com/ansible/rpm/release/epel-$releasever-$basearch"
+    gpgcheck: no
+    enabled: yes
+    repo_gpgcheck: no
+
+  - name: ansible_preview
+    description: "CentOS-$releasever / $basearch - Ansible Preview"
+    baseurl: "http://releases.ansible.com/ansible/rpm/preview/epel-$releasever-$basearch"
+    gpgcheck: no
+    enabled: yes
+    repo_gpgcheck: no
+
+ansible_packages:
+  - name:
+      - ansible
+      - python-ncclient
+      - libselinux-python
+    update_cache: yes
+    state: latest
