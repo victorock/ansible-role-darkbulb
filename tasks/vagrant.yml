@@ -94,7 +94,8 @@
     - box_add
 
 - name: "vagrant: Check if the path exist"
-  stat:
+  local_action:
+    module: stat
     path: "{{ vagrant_images_path.local }}"
   register: stat_vagrant_images_path
 
