@@ -45,7 +45,6 @@
     src: "{{ libvirt_images_path.local }}"
     dest: "{{ libvirt_images_path.remote }}"
     force: yes
-  notify: libvirtd_reload
   tags:
     - install
 
