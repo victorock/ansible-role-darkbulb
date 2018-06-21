@@ -2,9 +2,6 @@
 - name: "setup"
   include_tasks: setup.yml
 
-- name: "user"
-  include_tasks: user.yml
-
 - name: "ansible"
   include_tasks: ansible.yml
   when: darkbulb_ansible|bool

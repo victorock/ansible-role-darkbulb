@@ -1,5 +1,4 @@
 ---
-darkbulb_user: "darkbulb"
 darkbulb_homedir: "~/.darkbulb"
 darkbulb_ansible: "yes"
 darkbulb_cockpit: "yes"
