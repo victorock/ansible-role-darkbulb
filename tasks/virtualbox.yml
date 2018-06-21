@@ -33,11 +33,11 @@
   tags:
     - install
 
-- name: "virtualbox: Ensure state of user as member of application groups"
+- name: "virtualbox: Ensure state of user as member of {{ virtualbox_auth.group }}"
   become: true
   user:
-    name: "{{ virtualbox_instance.user }}"
-    groups: "{{ virtualbox_instance.groups }}"
+    name: "{{ ansible_user }}"
+    groups: "{{ virtualbox_auth.groups }}"
     append: yes
   tags:
     - configure

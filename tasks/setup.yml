@@ -31,8 +31,3 @@
     loop_var: setup_package
   tags:
     - install
-
-- name: "Group hosts by owner"
-  become: false
-  group_by:
-    key: "{{ darkbulb_user }}"

@@ -1,11 +1,3 @@
-libvirt_instance:
-  user: "{{ darkbulb_user }}"
-  homedir: "{{ darkbulb_homedir }}"
-  groups:
-    - "qemu"
-    - "libvirt"
-    - "kvm"
-
 libvirt_repos:
   - name: qemu-firmware-jenkins
     description: "firmware for qemu, built by jenkins, fresh from git repos"
@@ -29,6 +21,7 @@ libvirt_service:
 libvirt_auth:
   src: "libvirtd-auth.j2"
   dest: "/etc/polkit-1/localauthority/50-local.d/libvirt.pkla"
+  group: "libvirt"
 
 libvirt_packages:
   - name:

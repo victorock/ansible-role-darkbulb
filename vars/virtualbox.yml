@@ -1,8 +1,5 @@
-virtualbox_instance:
-  user: "{{ darkbulb_user }}"
-  homedir: "{{ darkbulb_homedir }}"
-  groups:
-    - vboxusers
+virtualbox_auth:
+  group: vboxusers
 
 virtualbox_repos:
   - name: virtualbox_release

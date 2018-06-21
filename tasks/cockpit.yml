@@ -34,6 +34,7 @@
     - install
 
 - name: "cockpit: Ensure service state"
+  become: true
   service:
     name: "{{ cockpit_service.name }}"
     state: "{{ cockpit_service.state }}"
