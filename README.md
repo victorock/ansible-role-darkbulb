@@ -6,6 +6,11 @@ Simple Role to Deploy Darkbulb Network.
 Requirements
 ------------
 
+None
+
+Role Variables
+--------------
+
 ```YAML
 darkbulb_user: "darkbulb"
 darkbulb_homedir: "/home/darkbulb"
@@ -16,11 +21,6 @@ darkbulb_vagrant: "no"
 darkbulb_virtualbox: "no"
 ```
 
-Role Variables
---------------
-
-None
-
 Dependencies
 ------------
 
@@ -30,7 +30,7 @@ Example Playbook
 ----------------
 
 ```YAML
-- name: "Deploy Ansible Tower by Red Hat"
+- name: "Deploy Darkbulb"
   hosts: darkbulb
   become: true
 

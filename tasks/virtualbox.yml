@@ -33,7 +33,7 @@
   tags:
     - install
 
-- name: "virtualbox: Ensure state of user as member of vboxusers"
+- name: "virtualbox: Ensure state of user as member of application groups"
   become: true
   user:
     name: "{{ virtualbox_instance.user }}"

@@ -41,18 +41,16 @@
 
 - name: "libvirt: Ensure state of image files"
   when: stat_libvirt_images_path.stat.exists
-  become: true
   copy:
     src: "{{ libvirt_images_path.local }}"
     dest: "{{ libvirt_images_path.remote }}"
-    owner: "{{ libvirt_images_path.owner }}"
-    group: "{{ libvirt_images_path.group }}"
     force: yes
   notify: libvirtd_reload
   tags:
     - install
 
 - name: "libvirt: Ensure state of UEFI image"
+  become: true
   copy:
     src: "/usr/share/edk2.git/ovmf-x64/OVMF_CODE-pure-efi.fd"
     dest: "/usr/share/OVMF/OVMF_CODE.fd"
@@ -61,18 +59,8 @@
   tags:
     - install
 
-- name: "libvirt: Ensure state of permissions in images folder"
-  become: true
-  file:
-    path: "{{ libvirt_images_path.remote }}"
-    owner: "{{ libvirt_images_path.owner }}"
-    group: "{{ libvirt_images_path.owner }}"
-    recurse: yes
-    state: directory
-  tags:
-    - config
-
 - name: "libvirt: Ensure service state"
+  become: true
   service:
     name: "{{ libvirt_service.name }}"
     state: "{{ libvirt_service.state }}"
@@ -85,7 +73,7 @@
   template:
     src: "{{ libvirt_auth.src }}"
     dest: "{{ libvirt_auth.dest }}"
-    mode: '0600'
+    mode: "0600"
   notify: libvirtd_reload
   tags:
     - config
