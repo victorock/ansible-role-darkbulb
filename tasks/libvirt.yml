@@ -81,12 +81,9 @@
 - name: "libvirt: Ensure state of system groups"
   become: true
   group:
-    name: "{{ libvirt_instance_group }}"
+    name: "{{ libvirt_auth.group }}"
     state: present
     system: yes
-  loop: "{{ libvirt_instance.groups }}"
-  loop_control:
-    loop_var: libvirt_instance_group
   tags:
     - configure
 
