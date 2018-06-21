@@ -78,7 +78,7 @@
   tags:
     - config
 
-- name: "libvirt: Ensure state of system groups"
+- name: "libvirt: Ensure state of system group {{ libvirt_auth.group }}"
   become: true
   group:
     name: "{{ libvirt_auth.group }}"
@@ -90,7 +90,7 @@
 - name: "libvirt: Ensure state of user as member of {{ libvirt_auth.group }}"
   become: true
   user:
-    name: "{{ ansible_user }}"
+    name: "{{ ansible_user|default(lookup('env', 'USER'), True) }}"
     groups: "{{ libvirt_auth.group }}"
     append: yes
   tags:

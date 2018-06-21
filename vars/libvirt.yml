@@ -43,4 +43,4 @@ libvirt_packages:
 
 libvirt_images_path:
   local: "files/images/qcow2/"
-  remote: "{{ libvirt_instance.homedir }}/images/qcow2/"
+  remote: "{{ darkbulb_homedir }}/images/qcow2/"

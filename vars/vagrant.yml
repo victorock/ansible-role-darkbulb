@@ -24,4 +24,4 @@ vagrant_boxes:
 
 vagrant_images_path:
   local: "files/images/box/"
-  remote: "{{ vagrant_instance.homedir }}/images/box/"
+  remote: "{{ darkbulb_homedir }}/images/box/"

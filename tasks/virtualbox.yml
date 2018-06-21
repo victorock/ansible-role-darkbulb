@@ -33,10 +33,19 @@
   tags:
     - install
 
+- name: "libvirt: Ensure state of system group {{ virtualbox_auth.group }}"
+  become: true
+  group:
+    name: "{{ virtualbox_auth.group }}"
+    state: present
+    system: yes
+  tags:
+    - configure
+
 - name: "virtualbox: Ensure state of user as member of {{ virtualbox_auth.group }}"
   become: true
   user:
-    name: "{{ ansible_user }}"
+    name: "{{ ansible_user|default(lookup('env', 'USER'), True) }}"
     groups: "{{ virtualbox_auth.groups }}"
     append: yes
   tags:
