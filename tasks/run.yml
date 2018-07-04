@@ -1,7 +1,4 @@
 ---
-- name: "setup"
-  include_tasks: setup.yml
-
 - name: "ansible"
   include_tasks: ansible.yml
   when: darkbulb_ansible|bool
@@ -31,3 +28,6 @@
 - name: "virtualbox"
   include_tasks: virtualbox.yml
   when: darkbulb_virtualbox|bool
+
+- name: "setup"
+  include_tasks: setup.yml

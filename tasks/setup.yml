@@ -3,22 +3,6 @@
   include_vars:
     file: "setup.yml"
 
-- name: "setup: Ensure state of Ansible Repo"
-  when: setup_repos|length > 0
-  become: true
-  yum_repository:
-    name: "{{ setup_repo.name }}"
-    baseurl: "{{ setup_repo.baseurl }}"
-    description: "{{ setup_repo.description | default(omit) }}"
-    gpgcheck: "{{ setup_repo.gpgcheck | default(omit) }}"
-    enabled: "{{ setup_repo.enabled | default(omit) }}"
-    repo_gpgcheck: "{{ setup_repo.repo_gpgcheck | default(omit) }}"
-  loop: "{{ setup_repos }}"
-  loop_control:
-    loop_var: setup_repo
-  tags:
-    - configure
-
 - name: "setup: Ensure state of packages"
   when: setup_packages|length > 0
   become: true
@@ -33,6 +17,6 @@
 - name: "setup: Ensure state of user as member of libvirt"
   become: true
   user:
-    name: "{{ ansible_user|default(lookup('env', 'USER'), True) }}"
+    name: "{{ ansible_user }}"
     groups: "{{ setup_libvirt_group }}"
     append: yes
