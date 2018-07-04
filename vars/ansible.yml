@@ -1,14 +1,14 @@
 ansible_repos:
   - name: ansible_release
-    description: "CentOS-$releasever / $basearch - Ansible Release"
-    baseurl: "http://releases.ansible.com/ansible/rpm/release/epel-$releasever-$basearch"
+    description: "CentOS/RHEL {{ ansible_distribution_major_version }} / {{ ansible_architecture }} - Ansible Release"
+    baseurl: "http://releases.ansible.com/ansible/rpm/release/epel-{{ ansible_distribution_major_version }}-{{ ansible_architecture }}"
     gpgcheck: no
     enabled: yes
     repo_gpgcheck: no
 
   - name: ansible_preview
-    description: "CentOS-$releasever / $basearch - Ansible Preview"
-    baseurl: "http://releases.ansible.com/ansible/rpm/preview/epel-$releasever-$basearch"
+    description: "CentOS/RHEL {{ ansible_distribution_major_version }} / {{ ansible_architecture }} - Ansible Preview"
+    baseurl: "http://releases.ansible.com/ansible/rpm/preview/epel-{{ ansible_distribution_major_version }}-{{ ansible_architecture }}"
     gpgcheck: no
     enabled: yes
     repo_gpgcheck: no
