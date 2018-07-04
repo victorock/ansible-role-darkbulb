@@ -23,7 +23,9 @@ darkbulb_virtualbox: "no"
 Dependencies
 ------------
 
-None
+victorock.cockpit
+victorock.libvirt
+victorock.gns3_server
 
 Example Playbook
 ----------------

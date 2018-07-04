@@ -32,3 +32,5 @@ setup_packages:
       - "@Development Tools"
     update_cache: yes
     state: latest
+
+setup_libvirt_group: "libvirt"

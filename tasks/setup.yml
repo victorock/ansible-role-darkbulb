@@ -23,11 +23,16 @@
   when: setup_packages|length > 0
   become: true
   yum:
-    name: "{{ setup_package.name }}"
+    name: "{{ setup_package.name | default(setup_package) }}"
     state: "{{ setup_package.state | default(omit) }}"
     update_cache: "{{ setup_package.update_cache | default(omit) }}"
   loop: "{{ setup_packages }}"
   loop_control:
     loop_var: setup_package
-  tags:
-    - install
+
+- name: "setup: Ensure state of user as member of libvirt"
+  become: true
+  user:
+    name: "{{ ansible_user|default(lookup('env', 'USER'), True) }}"
+    groups: "{{ setup_libvirt_group }}"
+    append: yes

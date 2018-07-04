@@ -1,0 +1,17 @@
+- name: victorock.gns3_server
+  src: https://github.com/victorock/ansible-role-gns3-server.git
+  scm: git
+  version: dev
+  name: victorock.gns3_server
+
+- name: victorock.cockpit
+  src: https://github.com/victorock/ansible-role-cockpit.git
+  scm: git
+  version: dev
+  name: victorock.gns3_server
+
+- name: victorock.libvirt
+  src: https://github.com/victorock/ansible-role-libvirt.git
+  scm: git
+  version: dev
+  name: victorock.libvirt

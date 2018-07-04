@@ -4,7 +4,8 @@
   become: yes
 
   roles:
-    - test
+    - role: test
+      autorun: yes
 
   tasks:
     - include_role:

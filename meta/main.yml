@@ -1,7 +1,11 @@
 ---
-dependencies: []
+dependencies:
+  - role: victorock.libvirt
+  - role: victorock.cockpit
+  - role: victorock.gns3_server
 
 galaxy_info:
+  role_name: darkbulb
   author: victorock
   description: Darkbulb Labs Setup
   license: "GPLv3"

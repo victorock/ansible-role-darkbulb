@@ -7,12 +7,22 @@
   when: darkbulb_ansible|bool
 
 - name: "cockpit"
-  include_tasks: cockpit.yml
-  when: darkbulb_cockpit|bool
+  include_role:
+    name: victorock.cockpit
+  vars:
+    autorun: darkbulb_cockpit|bool
 
 - name: "libvirt"
-  include_tasks: libvirt.yml
-  when: darkbulb_libvirt|bool
+  include_role:
+    name: victorock.libvirt
+  vars:
+    autorun: darkbulb_libvirt|bool
+
+- name: "gns3_server"
+  include_role:
+    name: victorock.gns3_server
+  vars:
+    autorun: darkbulb_gns3_server|bool
 
 - name: "vagrant"
   include_tasks: vagrant.yml
