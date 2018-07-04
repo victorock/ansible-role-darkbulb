@@ -2,7 +2,8 @@ setup_repos: []
 
 setup_packages:
   - name:
-      - http://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm
+      - http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+      - http://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm
     state: present
 
   - name:
